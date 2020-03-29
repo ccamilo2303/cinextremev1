@@ -24,14 +24,14 @@ export const environment = {
 
   payUconfig: {
 
-    // $url = 'https://checkout.payulatam.com/ppp-web-gateway-payu/', // Producción
-    url: 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/', // Sandbox
-    ApiKey: '4Vj8eK4rloUd272L48hsrarnUA', // Obtener este dato dela cuenta de Payu
+    url : 'https://checkout.payulatam.com/ppp-web-gateway-payu/', // Producción
+    //url: 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/', // Sandbox
+    ApiKey: 'OYxH32TXlaaBJTo3b1kBnHmjiJ', // Obtener este dato dela cuenta de Payu
     merchantId: '754685', // Obtener este dato dela cuenta de Payu
     accountId: '760533', // Obtener este dato dela cuenta de Payu
     currency: 'COP', // Moneda
     test: '1', // Variable para poder utilizar tarjetas de crédito de pruebas, los valores pueden ser 1 ó 0.
-    responseUrl: 'http://localhost:4200/#/response', // URL de respuesta,
+    responseUrl: 'http://localhost:4200/response', // URL de respuesta,
     confirmationUrl: "http://cinextreme.co/public/responsepayu", // URL de confirmación
   },
 

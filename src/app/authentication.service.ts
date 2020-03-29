@@ -11,6 +11,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AuthenticationService {
 
   userData: Observable<firebase.User>;
+  
 
   constructor(private angularFireAuth: AngularFireAuth, public firestore: AngularFirestore) {
     this.userData = angularFireAuth.authState;

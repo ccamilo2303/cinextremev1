@@ -1,0 +1,164 @@
+<section id="price" class="section-padding">
+
+    <div class="container">
+
+        <h2>Escoje tu plan</h2>
+
+        <p>Escoje el plan que se adapte a tu necesidad.</p>
+
+        <div class="row">
+
+            <!-- Pricing Start Here -->
+
+            <div class="pricing-container">
+
+                <div class="col-md-4">
+
+                    <!--== SINGLE USER: Plan ==-->
+
+                    <div class="plan">
+
+                        <div class="pricing-header">
+
+                            <h3>BÁSICO</h3>
+
+                            <h3>
+
+                                <span class="amount">7.000</span>
+                                <span class="currency">COP</span>
+
+                            </h3>
+
+                        </div>
+
+                        <div class="pricing-body">
+
+                            <ul class="list-unstyled">
+
+                                <li><i class="material-icons">done</i> Acceso a todas las películas</li>
+
+                                <li><i class="material-icons">done</i> Opción para solicitar palículas</li>
+
+                                <li><i class="material-icons">done</i> Soporte técnico por Chat, Email, WhatsApp</li>
+
+                                <li><i class="material-icons">done</i><b>30</b> Días de Servicio</li>
+
+                                <li><i class="material-icons">done</i><b>1</b> Pantalla activa</li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="pricing-footer">
+
+                            <a href="#" onclick="return false;" (click)="plan('configuracionPlanBasico')" class="btn btn-blue">Seleccionar</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <!--== MULTIPLE USER: Plan ==-->
+
+                    <div class="plan active">
+
+                        <div class="pricing-header">
+
+                            <h3>ESTÁNDAR</h3>
+
+                            <h3>
+
+                                <span class="amount">12.000</span>
+                                <span class="currency">COP</span>
+
+                            </h3>
+
+                        </div>
+
+                        <div class="pricing-body">
+
+                            <ul class="list-unstyled">
+
+                                <li><i class="material-icons">done</i> Acceso a todas las películas</li>
+
+                                <li><i class="material-icons">done</i> Opción para solicitar palículas</li>
+
+                                <li><i class="material-icons">done</i> Soporte técnico por Chat, Email, WhatsApp</li>
+
+                                <li><i class="material-icons">done</i><b>60</b> Días de Servicio</li>
+
+                                <li><i class="material-icons">done</i><b>2</b> Pantallas activa</li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="pricing-footer">
+
+                            <a href="#" onclick="return false;" (click)="plan('configuracionPlanEstandar')" class="btn btn-blue">Seleccionar</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <!--== Developer: Plan ==-->
+
+                    <div class="plan">
+
+                        <div class="pricing-header">
+
+                            <h3>PREMIUM</h3>
+
+                            <h3>
+
+                                <span class="amount">21.000</span>
+                                <span class="currency">COP</span>
+
+                            </h3>
+
+                        </div>
+
+                        <div class="pricing-body">
+
+                            <ul class="list-unstyled">
+
+                                <li><i class="material-icons">done</i> Acceso a todas las películas</li>
+
+                                <li><i class="material-icons">done</i> Opción para solicitar palículas</li>
+
+                                <li><i class="material-icons">done</i> Soporte técnico por Chat, Email, WhatsApp</li>
+
+                                <li><i class="material-icons">done</i><b>60</b> Días de Servicio</li>
+
+                                <li><i class="material-icons">done</i><b>3</b> Pantallas activa</li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="pricing-footer">
+
+                            <a href="#" onclick="return false;" (click)="plan('configuracionPlanPremium')" class="btn btn-blue">Seleccionar</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<input type="hidden" (click)="enviar()" id="sendTemp">

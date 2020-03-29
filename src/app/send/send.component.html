@@ -1,0 +1,16 @@
+<form method="post" action="{{config.url}}" id="form" target="_top">
+    <input name="merchantId" type="hidden" value="{{config.merchantId}}">
+    <input name="accountId" type="hidden" value="{{config.accountId}}">
+    <input name="description" type="hidden" value="{{config.description}}">
+    <input name="referenceCode" type="hidden" value="{{config.referenceCode}}">
+    <input name="amount" type="hidden" value="{{config.amount}}">
+    <input name="tax" type="hidden" value="{{config.tax}}">
+    <input name="taxReturnBase" type="hidden" value="{{config.taxReturnBase}}">
+    <input name="currency" type="hidden" value="{{config.currency}}">
+    <input name="signature" type="hidden" value="{{config.firmaMd5}}">
+    <input name="test" type="hidden" value="{{config.test}}">
+    <input name="buyerEmail" type="hidden" value="{{config.buyerEmail}}">
+    <!--<input name="buyerFullName" type="hidden" value="{{config.buyerFullName}}">-->
+    <input name="responseUrl" type="hidden" value="{{config.responseUrl}}">
+    <input name="confirmationUrl" type="hidden" value="{{config.confirmationUrl}}">
+</form>

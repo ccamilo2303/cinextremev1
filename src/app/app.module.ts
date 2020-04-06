@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PagoComponent } from './pago/pago.component';
 import { ResponseComponent } from './response/response.component';
 import { SendComponent } from './send/send.component';
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SendComponent } from './send/send.component';
     IndexComponent,
     PagoComponent,
     ResponseComponent,
-    SendComponent
+    SendComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,

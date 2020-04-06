@@ -16,14 +16,14 @@ export class AuthenticationService {
   constructor(private angularFireAuth: AngularFireAuth, public firestore: AngularFirestore) {
     this.userData = angularFireAuth.authState;
 
-    this.angularFireAuth.authState.subscribe(userResponse => {
+    /*this.angularFireAuth.authState.subscribe(userResponse => {
       console.log("--->: ", userResponse);
       if (userResponse) {
         localStorage.setItem('user', JSON.stringify(userResponse));
       } else {
         localStorage.setItem('user', null);
       }
-    })
+    })*/
 
   }
 

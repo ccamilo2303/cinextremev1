@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthenticationService } from './../authentication.service';
 import { CodeService } from '../code.service';
+import { AngularFireAuth } from "@angular/fire/auth";
+import { FormBuilder, Validators } from '@angular/forms';
 
 declare var $: any;
 
@@ -25,9 +27,14 @@ export class IndexComponent implements OnInit {
   public compra: boolean = false;
   public tipo: string = '';
   public codigo: string = '';
+  public loginForm:any;
 
+  constructor(public ngZone: NgZone,  public authenticationService: AuthenticationService, 
+    private route: ActivatedRoute, private router: Router, 
+    private codeService: CodeService, private angularFireAuth: AngularFireAuth, 
+    private fb: FormBuilder) { }
 
-  constructor(public authenticationService: AuthenticationService, private route: ActivatedRoute, private router: Router, private codeService: CodeService) { }
+     
 
   ngOnInit() {
     this.scripts.push("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js");
@@ -48,6 +55,10 @@ export class IndexComponent implements OnInit {
       }
     });
 
+    this.loginForm = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
   login(){
@@ -61,7 +72,8 @@ export class IndexComponent implements OnInit {
       return;
     }
     this.load = true;
-    this.authenticationService.login(this.email, this.pass).then(res => {
+    
+    this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( () => {
       this.load = false;
       
       localStorage.setItem('nombres', this.nombres);
@@ -81,11 +93,11 @@ export class IndexComponent implements OnInit {
           }
           $('#sendTemp').click();
         });
-
-        
         return;
       }
-
+      $('#SignIn').modal('toggle');
+          this.router.navigate(['/select']);
+      
     })
     .catch(err => {
       Swal.fire('Error', err.message, 'error');

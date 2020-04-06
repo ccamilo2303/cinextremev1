@@ -1,8 +1,10 @@
+import { SelectComponent } from './select/select.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IndexComponent } from './index/index.component';
 import { ResponseComponent } from './response/response.component';
 import { SendComponent } from './send/send.component';
+
 
 const routes: Routes = [
   {
@@ -16,6 +18,10 @@ const routes: Routes = [
   {
     path: 'send',
     component: SendComponent
+  },
+  {
+    path: 'select',
+    component: SelectComponent
   },
   {path : "**", component : IndexComponent}
 ];

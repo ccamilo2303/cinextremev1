@@ -71,7 +71,7 @@ export class IndexComponent implements OnInit {
   }
 
   validate(){
-    if(sessionStorage.getItem('cinextreme-t') != null){
+    if(sessionStorage.getItem('cinextreme-t') != null && sessionStorage.getItem('cinextreme-t').length > 20){
       this.redirect();
       return;
     }
@@ -94,14 +94,14 @@ export class IndexComponent implements OnInit {
     this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( (result) => {
       this.load = false;
       
-      localStorage.setItem('nombres', this.nombres);
-      localStorage.setItem('email', this.email);
+      sessionStorage.setItem('nombres', this.nombres);
+      sessionStorage.setItem('email', this.email);
 
       this.pass = '';
       
       if(this.compra == true){
         let random = Math.floor(Math.random() * 8000001);
-        localStorage.setItem("idPago", random.toString());
+        sessionStorage.setItem("idPago", random.toString());
         this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
           this.email = '';
           if (res['error'] == true) {
@@ -207,7 +207,7 @@ export class IndexComponent implements OnInit {
       })
     } else {
       let random = Math.floor(Math.random() * 8000001);
-      localStorage.setItem("idPago", random.toString());
+      sessionStorage.setItem("idPago", random.toString());
       this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
         if (res['error'] == true) {
           Swal.fire('Error', res['mensaje'], 'error');
@@ -234,8 +234,8 @@ export class IndexComponent implements OnInit {
         this.load = false;
         this.pago = true;
 
-        localStorage.setItem('nombres', this.nombres);
-        localStorage.setItem('email', this.email);
+        sessionStorage.setItem('nombres', this.nombres);
+        sessionStorage.setItem('email', this.email);
 
         if(this.compra == true){
           $('#sendTemp').click();

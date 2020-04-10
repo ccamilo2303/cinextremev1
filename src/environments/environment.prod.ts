@@ -21,6 +21,8 @@ export const environment = {
   ipBaseTMDB: 'https://api.themoviedb.org/3/movie/',
   keyTMDB: 'e38bdcb99eda95bae467ac8f3dd8684f',
 
+  ipVersions : "http://cinextreme.co/appCineL/versions.php",
+  signature : "appCine@Xtreme1qazXSW2*",
 
   payUconfig: {
 

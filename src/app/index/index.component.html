@@ -23,8 +23,7 @@
 
 <!--//** Navigation**//-->
 
-<nav class="navbar navbar-default navbar-fixed white no-background bootsnav navbar-scrollspy"
-    data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+<nav class="navbar navbar-default navbar-fixed white no-background bootsnav navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
 
 
 
@@ -71,8 +70,7 @@
 
                 <li class="button-holder">
 
-                    <button type="button" class="btn btn-blue navbar-btn" data-toggle="modal" data-target="#SignIn"
-                        id="iniciarSesion">Iniciar Sesión</button>
+                    <button type="button" class="btn btn-blue navbar-btn" data-toggle="modal" data-target="#SignIn" id="iniciarSesion" (click)="validate()">Iniciar Sesión</button>
 
                 </li>
 
@@ -138,36 +136,31 @@
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control" placeholder="Nombre Completo" required="required"
-                            [(ngModel)]="nombres" id="nombres" name="nombres" autofocus>
+                        <input type="text" class="form-control" placeholder="Nombre Completo" required="required" [(ngModel)]="nombres" id="nombres" name="nombres" autofocus>
 
                     </div>
 
                     <div class="form-group">
 
-                        <input type="email" class="form-control" placeholder="Email" required="required"
-                            [(ngModel)]="email" name="email">
+                        <input type="email" class="form-control" placeholder="Email" required="required" [(ngModel)]="email" name="email">
 
                     </div>
 
                     <div class="form-group">
 
-                        <input type="password" class="form-control" placeholder="Contraseña" required="required"
-                            [(ngModel)]="pass" name="pass">
+                        <input type="password" class="form-control" placeholder="Contraseña" required="required" [(ngModel)]="pass" name="pass">
 
                     </div>
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control" placeholder="Ingresa tu còdigo promocional"
-                            required="required" [(ngModel)]="codigo" name="codigo">
+                        <input type="text" class="form-control" placeholder="Ingresa tu còdigo promocional" required="required" [(ngModel)]="codigo" name="codigo">
 
                     </div>
 
                     <div class="form-group text-center">
 
-                        <button type="submit" class="btn btn-blue btn-block" onclick="return false;" [disabled]="load"
-                            (click)="registro()">Registrar</button>
+                        <button type="submit" class="btn btn-blue btn-block" onclick="return false;" [disabled]="load" (click)="registro()">Registrar</button>
                         <img src="./../../assets/img/load.gif" *ngIf="load == true">
 
                     </div>
@@ -433,7 +426,7 @@
                         <div class="col-md-4 inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input name="last_name"  class="form-control" type="text">
+                                <input name="last_name" class="form-control" type="text">
                             </div>
                         </div>
                     </div>
@@ -462,9 +455,7 @@
                     </div>
 
                     <!-- Success message -->
-                    <div class="alert alert-success" role="alert" id="success_message">Mensaje enviado con éxito. <i
-                            class="glyphicon glyphicon-thumbs-up"></i> 
-                            Gracias por contactarnos, nos pondremos en contacto con usted dentro de poco.
+                    <div class="alert alert-success" role="alert" id="success_message">Mensaje enviado con éxito. <i class="glyphicon glyphicon-thumbs-up"></i> Gracias por contactarnos, nos pondremos en contacto con usted dentro de poco.
                     </div>
 
                     <!-- Button -->
@@ -479,7 +470,7 @@
             </form>
         </div>
     </div>
-    
+
 
 </section>
 
@@ -548,15 +539,13 @@
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control" placeholder="Email" name="email" id="email"
-                            formControlName="email" [(ngModel)]="email">
+                        <input type="text" class="form-control" placeholder="Email" name="email" id="email" formControlName="email" [(ngModel)]="email">
 
                     </div>
 
                     <div class="form-group">
 
-                        <input type="password" class="form-control" placeholder="Contraseña" name="pass" id="password"
-                            formControlName="password" [(ngModel)]="pass">
+                        <input type="password" class="form-control" placeholder="Contraseña" name="pass" id="password" formControlName="password" [(ngModel)]="pass">
 
 
                     </div>
@@ -607,10 +596,8 @@
 
                     <div class="form-group text-center">
 
-                        <button type="submit" onclick="return false;" (click)="validacion(0)"
-                            class="btn btn-blue btn-block">No tengo cuenta</button>
-                        <button type="submit" onclick="return false;" (click)="validacion(1)"
-                            class="btn btn-blue btn-block">Ya tengo cuenta</button>
+                        <button type="submit" onclick="return false;" (click)="validacion(0)" class="btn btn-blue btn-block">No tengo cuenta</button>
+                        <button type="submit" onclick="return false;" (click)="validacion(1)" class="btn btn-blue btn-block">Ya tengo cuenta</button>
 
                     </div>
 

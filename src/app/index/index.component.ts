@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Component, OnInit, NgZone  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -8,6 +9,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { FormBuilder, Validators } from '@angular/forms';
 
 declare var $: any;
+declare var CryptoJS:any;
 
 @Component({
   selector: 'app-index',
@@ -46,9 +48,13 @@ export class IndexComponent implements OnInit {
     this.scripts.push("../../assets/js/plugins/particles.js-master/particles.js-master/particles.min.js");
     this.scripts.push("../../assets/js/particales-script.js");
     this.scripts.push("../../assets/js/main.js");
-    this.scripts.push("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js");
-    
+    this.scripts.push("../../assets/js/bootstrapvalidator.min.js");
+    this.scripts.push("../../assets/js/hmac-sha256.js");
+    this.scripts.push("../../assets/js/enc-base64-min.js");
+
     this.loadScript();
+
+    
 
     this.route.params.subscribe(p => {
       if (p != undefined && p['tipo'] != undefined) {
@@ -60,9 +66,20 @@ export class IndexComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+
   }
 
+  validate(){
+    if(sessionStorage.getItem('cinextreme-t') != null){
+      this.redirect();
+      return;
+    }
+  }
+  
   login(){
+    
+
     if(this.email == undefined || this.email.split(' ').join('') == ''){
       
       Swal.fire('Error', 'El campo Email no puede estar vacío', 'error');
@@ -74,7 +91,7 @@ export class IndexComponent implements OnInit {
     }
     this.load = true;
     
-    this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( () => {
+    this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( (result) => {
       this.load = false;
       
       localStorage.setItem('nombres', this.nombres);
@@ -96,14 +113,20 @@ export class IndexComponent implements OnInit {
         });
         return;
       }
-      $('#SignIn').modal('toggle');
-      window.location.replace("http://cinextreme.co/appCineL/versions.php");
-      
+      let token = generate(this.email, environment.signature)
+      sessionStorage.setItem('cinextreme-t', token);
+      this.redirect();
+
     })
     .catch(err => {
       Swal.fire('Error', err.message, 'error');
       this.load = false;
     });
+  }
+
+  redirect(){
+    $('#SignIn').modal('toggle');
+    window.location.href = environment.ipVersions+'?t='+sessionStorage.getItem('cinextreme-t');
   }
 
   loginGoogle(){
@@ -258,7 +281,7 @@ export class IndexComponent implements OnInit {
       node.async = true;
       node.charset = 'utf-8';
       document.getElementById('scriptsTemp').appendChild(node);
-      await sleep(100);
+      await sleep(500);
     }
 
   }
@@ -347,4 +370,54 @@ function sleep(ms) {
               console.log(result);
           }, 'json');
       });
+}
+
+
+
+function base64url(source) {
+  // Encode in classical base64
+  let encodedSource = CryptoJS.enc.Base64.stringify(source);
+  
+  // Remove padding equal characters
+  encodedSource = encodedSource.replace(/=+$/, '');
+  
+  // Replace characters according to base64url specifications
+  encodedSource = encodedSource.replace(/\+/g, '-');
+  encodedSource = encodedSource.replace(/\//g, '_');
+  
+  return encodedSource;
+}
+
+function generate(email, localSignature){
+  var header = {
+    "alg": "HS256",
+    "typ": "JWT"
+  };
+  
+  let date = new Date();
+  let dateAdd = new Date()
+  dateAdd.setHours(date.getHours() + 12);
+
+  var data = {
+    "email": email,
+    "iat": Math.round(date.getTime()/1000),
+    "exp": Math.round(dateAdd.getTime()/1000)
+  };
+  
+  var secret = localSignature;
+  
+
+  var stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
+  var encodedHeader = base64url(stringifiedHeader);
+  console.log(encodedHeader);
+  
+  var stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(data));
+  var encodedData = base64url(stringifiedData);
+  console.log(encodedData);
+  
+  var signature = encodedHeader + "." + encodedData;
+  signature = CryptoJS.HmacSHA256(signature, secret);
+  signature = base64url(signature);
+  
+  return encodedHeader+'.'+encodedData+'.'+signature;
 }

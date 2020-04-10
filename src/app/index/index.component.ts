@@ -71,8 +71,11 @@ export class IndexComponent implements OnInit {
   }
 
   validate(){
-    if(sessionStorage.getItem('cinextreme-t') != null && sessionStorage.getItem('cinextreme-t').length > 20){
-      this.redirect();
+    if(this.compra == false && 
+      sessionStorage.getItem('cinextreme-t') != null &&
+      sessionStorage.getItem('cinextreme-t').length > 20){
+
+      this.redirect(sessionStorage.getItem('cinextreme-t'), sessionStorage.getItem('email'));
       return;
     }
   }
@@ -94,12 +97,12 @@ export class IndexComponent implements OnInit {
     this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( (result) => {
       this.load = false;
       
-      sessionStorage.setItem('nombres', this.nombres);
-      sessionStorage.setItem('email', this.email);
-
+      
+      
       this.pass = '';
       
       if(this.compra == true){
+        sessionStorage.removeItem('cinextreme-t');
         let random = Math.floor(Math.random() * 8000001);
         sessionStorage.setItem("idPago", random.toString());
         this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
@@ -113,9 +116,10 @@ export class IndexComponent implements OnInit {
         });
         return;
       }
+      
       let token = generate(this.email, environment.signature)
-      sessionStorage.setItem('cinextreme-t', token);
-      this.redirect();
+      
+      this.redirect(this.email, token);
 
     })
     .catch(err => {
@@ -124,9 +128,11 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  redirect(){
+  redirect(token, email){
     $('#SignIn').modal('toggle');
-    window.location.href = environment.ipVersions+'?t='+sessionStorage.getItem('cinextreme-t');
+    sessionStorage.setItem('cinextreme-t', token);
+    sessionStorage.setItem('email', this.email);
+    window.location.href = environment.ipVersions+'?t='+sessionStorage.getItem('cinextreme-t')+'&data='+email;
   }
 
   loginGoogle(){
@@ -241,6 +247,7 @@ export class IndexComponent implements OnInit {
           $('#sendTemp').click();
           return;
         }else{
+          $('#itemPrecios').click();
           Swal.fire('Correcto!', 'Usuario registrado correctamente, escoge un plan que se ajuste a tu necesidad', 'success');
         }
 

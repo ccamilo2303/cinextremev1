@@ -13,10 +13,10 @@ export class SendComponent implements OnInit {
 
   ngOnInit() {
 
-    this.config = JSON.parse(localStorage.getItem('payment'));
+    this.config = JSON.parse(sessionStorage.getItem('payment'));
 
     setTimeout(() => {
-      localStorage.removeItem('payment');
+      sessionStorage.removeItem('payment');
       eval("document.getElementById('form').submit()");  
     }, 400);
     

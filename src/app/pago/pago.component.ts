@@ -45,17 +45,17 @@ export class PagoComponent implements OnInit {
   }
 
   public enviar(){
-
-    this.config.buyerEmail = localStorage.getItem('email');
-    this.config.buyerFullName = localStorage.getItem('nombres');
-    this.config.confirmacionEmail = localStorage.getItem('email');
-    this.config.referenceCode =localStorage.getItem('idPago');
+    
+    this.config.buyerEmail = sessionStorage.getItem('email');
+    this.config.buyerFullName = sessionStorage.getItem('nombres');
+    this.config.confirmacionEmail = sessionStorage.getItem('email');
+    this.config.referenceCode =sessionStorage.getItem('idPago');
 
     let info = this.config.ApiKey+'~'+this.config.merchantId+'~'+this.config.referenceCode+'~'+this.config.amount+'~'+this.config.currency;
     this.config.firmaMd5 = new Md5().appendStr(info).end();
     
     setTimeout( ()=>{
-      localStorage.setItem('payment', JSON.stringify(this.config));
+      sessionStorage.setItem('payment', JSON.stringify(this.config));
       this.router.navigate(['send']);
     }, 300);
   }

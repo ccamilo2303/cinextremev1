@@ -27,6 +27,7 @@ export class ResponseComponent implements OnInit {
       .split('&')
       .map(p => p.split('='))
       .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {});
+      console.log("------------> ", parametros);
       let codigo = parseInt(parametros['transactionState']);
 
     switch (codigo) {
@@ -42,7 +43,7 @@ export class ResponseComponent implements OnInit {
             'Gracias!, tu pago se efectuó con éxito, te invitamos a iniciar sesión',
             'success'
           )
-          this.router.navigate(['/login'])
+          this.router.navigate(['/home']);
           
         }, error => {
           Swal.fire('Error', 'Ocurrió un error al registrar la suscripción, por favor comúnicate con el servicio de soporte, envíanos el soporte de pago que llegó a tu correo', 'error');
@@ -58,7 +59,7 @@ export class ResponseComponent implements OnInit {
           'Tu pago fue rechazado, te enviaremos un email con información más detallada',
           'error'
         )
-        this.router.navigate(['/'])
+        this.router.navigate(['/home']);
         break;
       case 7:
         this.estado = "Transacción pendiente";
@@ -67,7 +68,7 @@ export class ResponseComponent implements OnInit {
           'Tu pago está en proceso, te enviaremos un email cuando finalice',
           'info'
         )
-        this.router.navigate(['/'])
+        this.router.navigate(['/home']);
         break;
       case 104:
         this.estado = "Error";
@@ -76,7 +77,7 @@ export class ResponseComponent implements OnInit {
           'Ocurrió un error con tu pago: ',
           'info'
         )
-        this.router.navigate(['/'])
+        this.router.navigate(['/home']);
         break;
       default:
         console.log("ENTRO...");

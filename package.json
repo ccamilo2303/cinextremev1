@@ -20,13 +20,13 @@
     "@angular/platform-browser": "~8.2.4",
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
+    "@babel/compat-data": "7.8.0",
     "firebase": "^7.13.1",
     "rxjs": "~6.4.0",
     "sweetalert2": "^9.10.7",
     "ts-md5": "^1.2.7",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1",
-    "@babel/compat-data": "7.8.0"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.2",

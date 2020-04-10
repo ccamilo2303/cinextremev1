@@ -46,6 +46,7 @@ export class IndexComponent implements OnInit {
     this.scripts.push("../../assets/js/plugins/particles.js-master/particles.js-master/particles.min.js");
     this.scripts.push("../../assets/js/particales-script.js");
     this.scripts.push("../../assets/js/main.js");
+    this.scripts.push("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js");
     
     this.loadScript();
 
@@ -96,7 +97,7 @@ export class IndexComponent implements OnInit {
         return;
       }
       $('#SignIn').modal('toggle');
-          this.router.navigate(['/select']);
+      window.location.replace("http://cinextreme.co/appCineL/versions.php");
       
     })
     .catch(err => {
@@ -262,8 +263,88 @@ export class IndexComponent implements OnInit {
 
   }
 
+  public contact(){
+    contact();
+  }
+
 }
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
+
+  function contact(){
+  $('#contact_form').bootstrapValidator({
+      // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+      feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+          first_name: {
+              validators: {
+                      stringLength: {
+                      min: 2,
+                  },
+                      notEmpty: {
+                      message: 'Porfavor, ingrese sus nombres'
+                  }
+              }
+          },
+           last_name: {
+              validators: {
+                   stringLength: {
+                      min: 2,
+                  },
+                  notEmpty: {
+                      message: 'Porfavor, ingrese sus apellidos'
+                  }
+              }
+          },
+          email: {
+              validators: {
+                  notEmpty: {
+                      message: 'Porfavor, ingrese su correo'
+                  },
+                  emailAddress: {
+                      message: 'Porfavor, ingrese un correo valido'
+                  }
+              }
+          },
+          comment: {
+              validators: {
+                    stringLength: {
+                      min: 10,
+                      max: 200,
+                      message:'Ingrese al menos 10 caracteres y no más de 200'
+                  },
+                  notEmpty: {
+                      message: 'Proporcione una descripción de su mensaje'
+                  }
+                  }
+              }
+          }
+      })
+      .on('success.form.bv', function(e) {
+          $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+              $('#contact_form').data('bootstrapValidator').resetForm();
+
+          // Prevent form submission
+          e.preventDefault();
+
+          // Get the form instance
+          var $form = $(e.target);
+
+          // Get the BootstrapValidator instance
+          var bv = $form.data('bootstrapValidator');
+
+          // Use Ajax to submit form data
+          $.post($form.attr('action'), $form.serialize(), function(result) {
+              console.log(result);
+          }, 'json');
+      });
 }

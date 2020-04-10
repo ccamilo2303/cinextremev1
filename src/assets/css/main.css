@@ -15,8 +15,8 @@
 ========================================*/
 body {
   font-family: 'Raleway', sans-serif;
-  color: #496174;
-  background: #fff;
+  color: #353738;
+  background: #dbd8d8;
   font-size: 14px;
   line-height: 24px; }
 
@@ -75,58 +75,65 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background: #44c5ee;
+  background: #020202;
   z-index: 100000; }
 
-.spinner {
-  position: relative;
-  top: 35%;
-  margin: 100px auto;
-  width: 50px;
-  height: 40px;
-  text-align: center;
-  font-size: 10px; }
-
-.spinner > div {
-  background-color: #fff;
-  height: 100%;
-  width: 6px;
-  display: inline-block;
-  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-  animation: sk-stretchdelay 1.2s infinite ease-in-out; }
-
-.spinner .rect2 {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s; }
-
-.spinner .rect3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s; }
-
-.spinner .rect4 {
-  -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s; }
-
-.spinner .rect5 {
-  -webkit-animation-delay: -0.8s;
-  animation-delay: -0.8s; }
-
-@-webkit-keyframes sk-stretchdelay {
-  0%,
-    40%,
-    100% {
-    -webkit-transform: scaleY(0.4); }
-  20% {
-    -webkit-transform: scaleY(1); } }
-@keyframes sk-stretchdelay {
-  0%,
-    40%,
-    100% {
-    transform: scaleY(0.4);
-    -webkit-transform: scaleY(0.4); }
-  20% {
-    transform: scaleY(1);
-    -webkit-transform: scaleY(1); } }
+  .sk-chase {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    animation: sk-chase 2.5s infinite linear both;
+    left: 50%;
+    top: 45%;
+  }
+  
+  .sk-chase-dot {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0; 
+    animation: sk-chase-dot 2.0s infinite ease-in-out both; 
+  }
+  
+  .sk-chase-dot:before {
+    content: '';
+    display: block;
+    width: 25%;
+    height: 25%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 100%;
+    animation: sk-chase-dot-before 2.0s infinite ease-in-out both; 
+  }
+  
+  .sk-chase-dot:nth-child(1) { animation-delay: -1.1s; }
+  .sk-chase-dot:nth-child(2) { animation-delay: -1.0s; }
+  .sk-chase-dot:nth-child(3) { animation-delay: -0.9s; }
+  .sk-chase-dot:nth-child(4) { animation-delay: -0.8s; }
+  .sk-chase-dot:nth-child(5) { animation-delay: -0.7s; }
+  .sk-chase-dot:nth-child(6) { animation-delay: -0.6s; }
+  .sk-chase-dot:nth-child(1):before { animation-delay: -1.1s; }
+  .sk-chase-dot:nth-child(2):before { animation-delay: -1.0s; }
+  .sk-chase-dot:nth-child(3):before { animation-delay: -0.9s; }
+  .sk-chase-dot:nth-child(4):before { animation-delay: -0.8s; }
+  .sk-chase-dot:nth-child(5):before { animation-delay: -0.7s; }
+  .sk-chase-dot:nth-child(6):before { animation-delay: -0.6s; }
+  
+  @keyframes sk-chase {
+    100% { transform: rotate(360deg); } 
+  }
+  
+  @keyframes sk-chase-dot {
+    80%, 100% { transform: rotate(360deg); } 
+  }
+  
+  @keyframes sk-chase-dot-before {
+    50% {
+      transform: scale(0.4); 
+    } 100%, 0% {
+      transform: scale(1.0); 
+    } 
+  }
 /*========================================
             Typography
 ========================================*/
@@ -166,9 +173,9 @@ p {
             Buttons Style
 ========================================*/
 .btn-blue {
-  background: #44c5ee;
+  background: #092848;
   padding: 10px 28px;
-  border: 2px solid #44c5ee;
+  border: 2px solid #092848;
   color: #fff;
   border-radius: 50px;
   font-weight: 700;
@@ -502,7 +509,7 @@ nav.navbar.bootsnav.navbar-fixed .button-holder {
         top: 5px;
         margin-right: 10px; }
   #home .signup-form {
-    background-color: #fff;
+    background-color: #f5f5f5;
     padding: 45px;
     border-radius: 5px; }
     #home .signup-form input {
@@ -541,7 +548,7 @@ nav.navbar.bootsnav.navbar-fixed .button-holder {
            Story
 ========================================*/
 #story {
-  background: #44c5ee; }
+  background: #0d161b; }
   #story .col-md-6 {
     padding: 0; }
   #story .story-bg {
@@ -551,7 +558,7 @@ nav.navbar.bootsnav.navbar-fixed .button-holder {
     background-repeat: no-repeat;
     height: 480px; }
   #story .story-content {
-    padding: 40px;
+    padding: 30px;
     color: #fff; }
     #story .story-content .story-quote {
       font-size: 24px;
@@ -602,7 +609,8 @@ nav.navbar.bootsnav.navbar-fixed .button-holder {
         -ms-transform: scale(1.05);
             transform: scale(1.05);
     background-color: #fff;
-    box-shadow: 0px 0px 60px 0px rgba(68, 197, 238, 0.6); }
+    box-shadow: 0px 0px 60px 0px rgba(95, 7, 47, 0.76);
+  }
   #price .pricing-container {
     margin-top: 80px; }
     #price .pricing-container h2 {
@@ -778,13 +786,13 @@ nav.navbar.bootsnav.navbar-fixed .button-holder {
            Footer
 ========================================*/
 footer {
-  background: #44c5ee;
+  background: #091317;
   color: #fff;
   padding: 40px 0; }
   footer hr {
     margin: 40px 0; }
   footer img {
-    width: 50px; }
+    width: 200px; }
   footer ul {
     padding: 0; }
   footer li {
@@ -799,3 +807,7 @@ footer {
     footer li a:focus,
     footer li a:active {
       color: #496174; }
+
+
+
+      #success_message{ display: none;}

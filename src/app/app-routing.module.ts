@@ -7,10 +7,7 @@ import { SendComponent } from './send/send.component';
 
 
 const routes: Routes = [
-  {
-    path : "home", 
-    component : IndexComponent
-  },
+  
   {
     path: 'response',
     component: ResponseComponent
@@ -19,8 +16,18 @@ const routes: Routes = [
     path: 'send',
     component: SendComponent
   },
-  
-  {path : "**", component : IndexComponent}
+  {
+    path : "clean", 
+    component : IndexComponent
+  },
+  {
+    path : "home", 
+    component : IndexComponent
+  },
+  {
+    path : "**", 
+    redirectTo : 'home'
+  }
 ];
 
 @NgModule({

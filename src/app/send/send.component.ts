@@ -17,7 +17,7 @@ export class SendComponent implements OnInit {
 
     setTimeout(() => {
       sessionStorage.removeItem('payment');
-      eval("document.getElementById('form').submit()");  
+      eval("document.getElementById('form').submit()");
     }, 400);
     
   }

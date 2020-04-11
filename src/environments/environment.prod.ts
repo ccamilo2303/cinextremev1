@@ -24,6 +24,8 @@ export const environment = {
   ipVersions : "http://cinextreme.co/appCineL/versions.php",
   signature : "appCine@Xtreme1qazXSW2*",
 
+  nameToken : "cinextreme-t",
+
   payUconfig: {
 
     url : 'https://checkout.payulatam.com/ppp-web-gateway-payu/', // Producción

@@ -7,7 +7,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, Location, PathLocationStrategy } from '@angular/common';
 
 import { environment } from '../environments/environment';
 
@@ -44,7 +44,7 @@ import { SendComponent } from './send/send.component';
     HttpClientModule
   ],
   providers: [
-    {provide : LocationStrategy , useClass: HashLocationStrategy}
+    {provide : LocationStrategy , useClass: PathLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

@@ -54,7 +54,11 @@ export class IndexComponent implements OnInit {
 
     this.loadScript();
 
-    
+    if(this.router.url === '/clean'){
+      console.log("elimina");
+      sessionStorage.removeItem(environment.nameToken);
+      sessionStorage.removeItem("email");
+    }
 
     this.route.params.subscribe(p => {
       if (p != undefined && p['tipo'] != undefined) {
@@ -72,10 +76,10 @@ export class IndexComponent implements OnInit {
 
   validate(){
     if(this.compra == false && 
-      sessionStorage.getItem('cinextreme-t') != null &&
-      sessionStorage.getItem('cinextreme-t').length > 20){
+      sessionStorage.getItem(environment.nameToken) != null &&
+      sessionStorage.getItem(environment.nameToken).length > 20){
 
-      this.redirect(sessionStorage.getItem('cinextreme-t'), sessionStorage.getItem('email'));
+      this.redirect(sessionStorage.getItem(environment.nameToken), sessionStorage.getItem('email'));
       return;
     }
   }
@@ -119,7 +123,7 @@ export class IndexComponent implements OnInit {
       
       let token = generate(this.email, environment.signature)
       
-      this.redirect(this.email, token);
+      this.redirect(token, this.email);
 
     })
     .catch(err => {
@@ -133,6 +137,7 @@ export class IndexComponent implements OnInit {
     sessionStorage.setItem('cinextreme-t', token);
     sessionStorage.setItem('email', this.email);
     window.location.href = environment.ipVersions+'?t='+sessionStorage.getItem('cinextreme-t')+'&data='+email;
+    //console.log(environment.ipVersions+'?t='+sessionStorage.getItem('cinextreme-t')+'&data='+email);
   }
 
   loginGoogle(){

@@ -20,6 +20,9 @@ import { PagoComponent } from './pago/pago.component';
 import { ResponseComponent } from './response/response.component';
 import { SendComponent } from './send/send.component';
 
+import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+
+
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { SendComponent } from './send/send.component';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    PasswordStrengthMeterModule,
 
     HttpClientModule
   ],

@@ -21,12 +21,14 @@
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
     "@babel/compat-data": "7.8.0",
+    "angular-password-strength-meter": "^1.0.2",
     "firebase": "^7.13.1",
     "rxjs": "~6.4.0",
     "sweetalert2": "^9.10.7",
     "ts-md5": "^1.2.7",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.2",

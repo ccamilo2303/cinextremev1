@@ -27,14 +27,11 @@ export const environment = {
   nameToken : "cinextreme-t",
   
   payUconfig: {
-    url : 'https://checkout.payulatam.com/ppp-web-gateway-payu/', // Producción
-    //url: 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/', // Sandbox
-    //ApiKey: '4Vj8eK4rloUd272L48hsrarnUA',
-    ApiKey: 'OYxH32TXlaaBJTo3b1kBnHmjiJ', // Obtener este dato dela cuenta de Payu
-    /*merchantId: '508029',
-    accountId: '512321',*/
-    merchantId: '754685', // Obtener este dato dela cuenta de Payu
-    accountId: '760533', // Obtener este dato dela cuenta de Payu
+    //url : 'https://checkout.payulatam.com/ppp-web-gateway-payu/', // Producción
+    url: 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/', // Sandbox
+    ApiKey: '4Vj8eK4rloUd272L48hsrarnUA',
+    merchantId: '508029',
+    accountId: '512321',
 
     currency: 'COP', // Moneda
     test: '1', // Variable para poder utilizar tarjetas de crédito de pruebas, los valores pueden ser 1 ó 0.
@@ -42,6 +39,10 @@ export const environment = {
     confirmationUrl: "http://cinextreme.co/public/responsepayu", // URL de confirmación
   },
 
+
+/*ApiKey: 'OYxH32TXlaaBJTo3b1kBnHmjiJ',
+    merchantId: '754685',
+    accountId: '760533',*/
 
   configuracionPlanBasico : {
     description: 'Plan Básico - 30 Días de servicio + Acceso a todas las películas, Soporte por email y/o WhatsApp + Opción para pedir peliculas + 1 pantalla activa', //Descripción del pedido    

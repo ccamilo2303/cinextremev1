@@ -54,6 +54,12 @@ export class IndexComponent implements OnInit {
 
     this.loadScript();
 
+    
+    if(window.location.href.indexOf('?l=l')){
+      sessionStorage.removeItem(environment.nameToken);
+      sessionStorage.removeItem("email");
+    }
+
     if(this.router.url === '/clean'){
       console.log("elimina");
       sessionStorage.removeItem(environment.nameToken);
@@ -101,7 +107,7 @@ export class IndexComponent implements OnInit {
     this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( (result) => {
       this.load = false;
       
-      
+      sessionStorage.setItem('email', this.email);
       
       this.pass = '';
       
@@ -135,8 +141,15 @@ export class IndexComponent implements OnInit {
   redirect(token, email){
     $('#SignIn').modal('toggle');
     sessionStorage.setItem('cinextreme-t', token);
-    sessionStorage.setItem('email', this.email);
-    window.location.href = environment.ipVersions+'?t='+sessionStorage.getItem('cinextreme-t')+'&data='+email;
+    
+    if(this.email != undefined && this.email != ''){
+      sessionStorage.setItem('email', this.email);
+    }
+    email = sessionStorage.getItem('email');
+
+    setTimeout(()=>{
+      window.location.href = environment.ipVersions+'?t='+sessionStorage.getItem('cinextreme-t')+'&data='+email;
+    }, 250);
     //console.log(environment.ipVersions+'?t='+sessionStorage.getItem('cinextreme-t')+'&data='+email);
   }
 

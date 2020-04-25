@@ -22,7 +22,7 @@ export class ResponseComponent implements OnInit {
   ngOnInit() {
     
 
-    let parametros = location.hash
+    let parametros = location.href
       .slice(1)
       .split('&')
       .map(p => p.split('='))

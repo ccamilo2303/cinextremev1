@@ -163,63 +163,105 @@ export class IndexComponent implements OnInit {
       return;
     }
     this.load = true;
-    
-    this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( (result) => {
 
-      this.codeService.valSuscripcion(this.email).subscribe(res => {
+    if(this.compra == true){
 
-       
-        if(res['error'] == true){
+      this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( (result) => {
 
-          Swal.fire({
-            icon: 'error',
-            title: 'Ocurrio un error',
-            text: res['mensaje'],
-          })
-          this.load = false;
-        }else{
-          this.load = false;
+        this.load = false;
       
-          sessionStorage.setItem('email', this.email);
-          
-          this.pass = '';
-          
-          if(this.compra == true){
-            sessionStorage.removeItem('cinextreme-t');
-            let random = Math.floor(Math.random() * 8000001);
-            sessionStorage.setItem("idPago", random.toString());
-            this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
-              this.email = '';
-              if (res['error'] == true) {
-                Swal.fire('Error', res['mensaje'], 'error');
-                this.load = false;
-                return;
-              }
-              $('#sendTemp').click();
-            });
-            return;
-          }
-          
-          let token = generate(this.email, environment.signature)
-          
-          this.redirect(token, this.email);
-    
-        }
-
+        sessionStorage.setItem('email', this.email);
         
-
-      }, error=>{
-        console.log('--->', error);
-        Swal.fire('Error', error.message, 'error');
+        this.pass = '';
+        
+        if(this.compra == true){
+          sessionStorage.removeItem('cinextreme-t');
+          let random = Math.floor(Math.random() * 8000001);
+          sessionStorage.setItem("idPago", random.toString());
+          this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
+            this.email = '';
+            if (res['error'] == true) {
+              Swal.fire('Error', res['mensaje'], 'error');
+              this.load = false;
+              return;
+            }
+            $('#sendTemp').click();
+          });
+          return;
+        }
+        
+        let token = generate(this.email, environment.signature)
+        
+        this.redirect(token, this.email);
+  
+      })
+      .catch(err => {
+        Swal.fire('Error', err.message, 'error');
         this.load = false;
       });
 
+    }else{
+
+      this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( (result) => {
+
+        this.codeService.valSuscripcion(this.email).subscribe(res => {
+  
+         
+          if(res['error'] == true){
+  
+            Swal.fire({
+              icon: 'error',
+              title: 'Ocurrio un error',
+              text: res['mensaje'],
+            })
+            this.load = false;
+          }else{
+            this.load = false;
+        
+            sessionStorage.setItem('email', this.email);
+            
+            this.pass = '';
+            
+            if(this.compra == true){
+              sessionStorage.removeItem('cinextreme-t');
+              let random = Math.floor(Math.random() * 8000001);
+              sessionStorage.setItem("idPago", random.toString());
+              this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
+                this.email = '';
+                if (res['error'] == true) {
+                  Swal.fire('Error', res['mensaje'], 'error');
+                  this.load = false;
+                  return;
+                }
+                $('#sendTemp').click();
+              });
+              return;
+            }
+            
+            let token = generate(this.email, environment.signature)
+            
+            this.redirect(token, this.email);
       
-    })
-    .catch(err => {
-      Swal.fire('Error', err.message, 'error');
-      this.load = false;
-    });
+          }
+  
+          
+  
+        }, error=>{
+          console.log('--->', error);
+          Swal.fire('Error', error.message, 'error');
+          this.load = false;
+        });
+  
+        
+      })
+      .catch(err => {
+        Swal.fire('Error', err.message, 'error');
+        this.load = false;
+      });
+      
+    }
+    
+    
   }
 
   redirect(token, email){

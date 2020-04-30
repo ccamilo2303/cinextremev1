@@ -402,7 +402,7 @@
 
         <div class="container">
 
-            <form class="well form-horizontal" action=" " method="post" id="contact_form">
+            <form class="well form-horizontal" [formGroup]="registerForm" (ngSubmit)="onSubmit()" id="contact_form">
                 <fieldset>
 
                     <!-- Form Name -->
@@ -415,7 +415,7 @@
                         <div class="col-md-4 inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input name="first_name" class="form-control" type="text">
+                                <input formControlName="name" name="first_name" class="form-control" type="text">
                             </div>
                         </div>
                     </div>
@@ -427,7 +427,7 @@
                         <div class="col-md-4 inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input name="last_name" class="form-control" type="text">
+                                <input formControlName="last" name="last_name" class="form-control" type="text">
                             </div>
                         </div>
                     </div>
@@ -438,7 +438,7 @@
                         <div class="col-md-4 inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input name="email" class="form-control" type="text">
+                                <input formControlName="email"  name="email" class="form-control" type="text">
                             </div>
                         </div>
                     </div>
@@ -450,7 +450,7 @@
                         <div class="col-md-4 inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                <textarea class="form-control" name="comment"></textarea>
+                                <textarea class="form-control" formControlName="msg" name="comment"></textarea>
                             </div>
                         </div>
                     </div>
@@ -463,7 +463,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label"></label>
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-warning" (click)="contact()">Enviar <span
+                            <button class="btn btn-warning" (click)="contact()">Enviar <span
                                     class="glyphicon glyphicon-send"></span></button>
                         </div>
                     </div>
@@ -474,6 +474,7 @@
 
 
 </section>
+
 
 
 

@@ -41,6 +41,17 @@ export class CodeService {
 
   }
 
+  formularioContacto(info){
+    
+    return this.httpClient.get(environment.ipServicio+'contactar/'+info);
+
+  }
+
+  valSuscripcion(emailUser){
+    
+    return this.httpClient.get(environment.ipServicio+'valsuscripcion?email='+emailUser);
+
+  }
 
 
 

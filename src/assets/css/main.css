@@ -811,3 +811,8 @@ footer {
 
 
       #success_message{ display: none;}
+
+  .swal2-popup{
+
+    font-size: 1.4rem!important;
+  }

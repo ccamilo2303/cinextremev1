@@ -6,7 +6,8 @@ import Swal from 'sweetalert2';
 import { AuthenticationService } from './../authentication.service';
 import { CodeService } from '../code.service';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 declare var $: any;
 declare var CryptoJS:any;
@@ -17,6 +18,10 @@ declare var CryptoJS:any;
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
+
+  registerForm: FormGroup;
+  submitted = false;
+
   
   public scripts: Array<string> = new Array();
   public email : string;
@@ -34,7 +39,7 @@ export class IndexComponent implements OnInit {
   constructor(public ngZone: NgZone,  public authenticationService: AuthenticationService, 
     private route: ActivatedRoute, private router: Router, 
     private codeService: CodeService, private angularFireAuth: AngularFireAuth, 
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private formBuilder: FormBuilder) { }
 
      
 
@@ -78,6 +83,59 @@ export class IndexComponent implements OnInit {
     });
 
 
+    this.registerForm = this.formBuilder.group({
+      _token: [null],
+      name: ['', Validators.required],
+      last: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      msg: ['', [Validators.required, Validators.minLength(10)]]
+  }, {
+     
+  });
+
+  }
+
+  get f() { return this.registerForm.controls; }
+
+  onSubmit() {
+      this.submitted = true;
+
+      // stop here if form is invalid
+      if (this.registerForm.invalid) {
+          return;
+      }
+
+      let obj = (JSON.stringify(this.registerForm.value));
+
+      this.codeService.formularioContacto(obj).subscribe(res => {
+        console.log('', res);
+
+       this.limpiarFormularioContacto();
+
+       Swal.fire({
+        icon: 'success',
+        title: 'Mensaje enviado con éxito',
+        text: 'Gracias por contactarnos, nos pondremos en contacto con usted dentro de poco.',
+      })
+
+        
+      }, error=>{
+        console.log('--->', error);
+        this.limpiarFormularioContacto();
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Ocurrio un error en el envío',
+          text: 'Vuelve a intentarlo más tarde.',
+        })
+
+      });
+  }
+
+  limpiarFormularioContacto(){
+
+    $("#contact_form").data('bootstrapValidator').resetForm();
+    $("#contact_form")[0].reset();
   }
 
   validate(){
@@ -89,6 +147,8 @@ export class IndexComponent implements OnInit {
       return;
     }
   }
+
+  
   
   login(){
     
@@ -105,32 +165,56 @@ export class IndexComponent implements OnInit {
     this.load = true;
     
     this.angularFireAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then( (result) => {
-      this.load = false;
+
+      this.codeService.valSuscripcion(this.email).subscribe(res => {
+
+       
+        if(res['error'] == true){
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Ocurrio un error',
+            text: res['mensaje'],
+          })
+          this.load = false;
+        }else{
+          this.load = false;
       
-      sessionStorage.setItem('email', this.email);
-      
-      this.pass = '';
-      
-      if(this.compra == true){
-        sessionStorage.removeItem('cinextreme-t');
-        let random = Math.floor(Math.random() * 8000001);
-        sessionStorage.setItem("idPago", random.toString());
-        this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
-          this.email = '';
-          if (res['error'] == true) {
-            Swal.fire('Error', res['mensaje'], 'error');
-            this.load = false;
+          sessionStorage.setItem('email', this.email);
+          
+          this.pass = '';
+          
+          if(this.compra == true){
+            sessionStorage.removeItem('cinextreme-t');
+            let random = Math.floor(Math.random() * 8000001);
+            sessionStorage.setItem("idPago", random.toString());
+            this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
+              this.email = '';
+              if (res['error'] == true) {
+                Swal.fire('Error', res['mensaje'], 'error');
+                this.load = false;
+                return;
+              }
+              $('#sendTemp').click();
+            });
             return;
           }
-          $('#sendTemp').click();
-        });
-        return;
-      }
-      
-      let token = generate(this.email, environment.signature)
-      
-      this.redirect(token, this.email);
+          
+          let token = generate(this.email, environment.signature)
+          
+          this.redirect(token, this.email);
+    
+        }
 
+        
+
+      }, error=>{
+        console.log('--->', error);
+        Swal.fire('Error', error.message, 'error');
+        this.load = false;
+      });
+
+      
     })
     .catch(err => {
       Swal.fire('Error', err.message, 'error');
@@ -153,6 +237,10 @@ export class IndexComponent implements OnInit {
     //console.log(environment.ipVersions+'?t='+sessionStorage.getItem('cinextreme-t')+'&data='+email);
   }
 
+  contact(){
+     contactt();
+  }
+
   loginGoogle(){
     this.authenticationService.loginConGoogle().then(res=>{
       this.authenticationService.registrarUsuario(res.user['displayName'], res.user['email']);
@@ -163,6 +251,9 @@ export class IndexComponent implements OnInit {
       this.load = false;
     });
   }
+
+  
+
 
   registro() {
     if (this.nombres == undefined || this.nombres.split(' ').join('') == '') {
@@ -311,9 +402,7 @@ export class IndexComponent implements OnInit {
 
   }
 
-  public contact(){
-    contact();
-  }
+
 
 }
 
@@ -324,78 +413,7 @@ function sleep(ms) {
 
 
 
-  function contact(){
-  $('#contact_form').bootstrapValidator({
-      // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-      feedbackIcons: {
-          valid: 'glyphicon glyphicon-ok',
-          invalid: 'glyphicon glyphicon-remove',
-          validating: 'glyphicon glyphicon-refresh'
-      },
-      fields: {
-          first_name: {
-              validators: {
-                      stringLength: {
-                      min: 2,
-                  },
-                      notEmpty: {
-                      message: 'Porfavor, ingrese sus nombres'
-                  }
-              }
-          },
-           last_name: {
-              validators: {
-                   stringLength: {
-                      min: 2,
-                  },
-                  notEmpty: {
-                      message: 'Porfavor, ingrese sus apellidos'
-                  }
-              }
-          },
-          email: {
-              validators: {
-                  notEmpty: {
-                      message: 'Porfavor, ingrese su correo'
-                  },
-                  emailAddress: {
-                      message: 'Porfavor, ingrese un correo valido'
-                  }
-              }
-          },
-          comment: {
-              validators: {
-                    stringLength: {
-                      min: 10,
-                      max: 200,
-                      message:'Ingrese al menos 10 caracteres y no más de 200'
-                  },
-                  notEmpty: {
-                      message: 'Proporcione una descripción de su mensaje'
-                  }
-                  }
-              }
-          }
-      })
-      .on('success.form.bv', function(e) {
-          $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
-              $('#contact_form').data('bootstrapValidator').resetForm();
-
-          // Prevent form submission
-          e.preventDefault();
-
-          // Get the form instance
-          var $form = $(e.target);
-
-          // Get the BootstrapValidator instance
-          var bv = $form.data('bootstrapValidator');
-
-          // Use Ajax to submit form data
-          $.post($form.attr('action'), $form.serialize(), function(result) {
-              console.log(result);
-          }, 'json');
-      });
-}
+   
 
 
 
@@ -445,4 +463,60 @@ function generate(email, localSignature){
   signature = base64url(signature);
   
   return encodedHeader+'.'+encodedData+'.'+signature;
+}
+
+ function contactt(){
+  $('#contact_form').bootstrapValidator({
+      // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+      feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+      },
+      excluded: [':disabled'],
+      fields: {
+          first_name: {
+              validators: {
+                      stringLength: {
+                      min: 2,
+                  },
+                      notEmpty: {
+                      message: 'Porfavor, ingrese sus nombres'
+                  }
+              }
+          },
+           last_name: {
+              validators: {
+                   stringLength: {
+                      min: 2,
+                  },
+                  notEmpty: {
+                      message: 'Porfavor, ingrese sus apellidos'
+                  }
+              }
+          },
+          email: {
+              validators: {
+                  notEmpty: {
+                      message: 'Porfavor, ingrese su correo'
+                  },
+                  emailAddress: {
+                      message: 'Porfavor, ingrese un correo valido'
+                  }
+              }
+          },
+          comment: {
+              validators: {
+                    stringLength: {
+                      min: 10,
+                      max: 200,
+                      message:'Ingrese al menos 10 caracteres y no más de 200'
+                  },
+                  notEmpty: {
+                      message: 'Proporcione una descripción de su mensaje'
+                  }
+                  }
+              }
+          }
+      })
 }

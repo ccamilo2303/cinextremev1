@@ -16,8 +16,8 @@ export class SendComponent implements OnInit {
     this.config = JSON.parse(sessionStorage.getItem('payment'));
 
     setTimeout(() => {
-      //sessionStorage.removeItem('payment');
-      //eval("document.getElementById('form').submit()");
+      sessionStorage.removeItem('payment');
+      eval("document.getElementById('form').submit()");
     }, 400);
     
   }

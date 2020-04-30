@@ -36,7 +36,7 @@ export const environment = {
     currency: 'COP', // Moneda
     test: '1', // Variable para poder utilizar tarjetas de crédito de pruebas, los valores pueden ser 1 ó 0.
     responseUrl: 'http://localhost:4200/response', // URL de respuesta,
-    confirmationUrl: "http://cinextreme.co/public/responsepayu", // URL de confirmación
+    confirmationUrl: 'http://cinextreme.co/public/responsepayu?', // URL de confirmación
   },
 
 

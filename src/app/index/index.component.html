@@ -70,7 +70,7 @@
 
                 <li class="button-holder">
 
-                    <button type="button" class="btn btn-blue navbar-btn" data-toggle="modal" data-target="#SignIn" id="iniciarSesion" (click)="validate()">Iniciar Sesión</button>
+                    <button type="button" class="btn btn-blue navbar-btn" data-toggle="modal" data-target="#SignIn" data-backdrop="static" data-keyboard="false" id="iniciarSesion" (click)="validate()">Iniciar Sesión</button>
 
                 </li>
 
@@ -149,8 +149,8 @@
                     <div class="form-group">
 
                         <input type="password" class="form-control" placeholder="Contraseña" required="required" [(ngModel)]="pass" name="pass">
-                        
-                        <password-strength-meter [password]="pass" [minPasswordLength]="6" ></password-strength-meter>
+
+                        <password-strength-meter [password]="pass" [minPasswordLength]="6"></password-strength-meter>
                     </div>
 
                     <div class="form-group">
@@ -438,7 +438,7 @@
                         <div class="col-md-4 inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input formControlName="email"  name="email" class="form-control" type="text">
+                                <input formControlName="email" name="email" class="form-control" type="text">
                             </div>
                         </div>
                     </div>
@@ -528,8 +528,8 @@
 
             <div class="modal-header">
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reset()">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="close" data-dismiss="modal" (click)="reset()">
+                    <i class="fa fa-times"></i>
                 </button>
 
                 <h4 class="modal-title text-center" id="myModalLabel">Iniciar Sesión</h4>
@@ -563,18 +563,69 @@
                 </form>
 
             </div>
-
-            <div class="modal-footer text-center">
-
-                <a href="#">Olvidé mi contraseña</a>
-
+            <div class="modal-footer">
+                <a href="#" onclick="return false;" (click)="restaurar()">Olvidé mi contraseña   </a>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="reset()">Cerrar</button>
             </div>
+
 
         </div>
 
     </div>
 
 </div>
+
+
+
+
+<div class="modal fade" id="Reset" tabindex="-1" role="dialog" aria-labelledby="Reset">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" (click)="reset()">
+                    <i class="fa fa-times"></i>
+                </button>
+
+                <h4 class="modal-title text-center" id="myModalLabel">Recuperar Contraseña</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form class="signup-form" [formGroup]="loginForm">
+
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" placeholder="Email" name="email" id="email" formControlName="email" [(ngModel)]="email">
+
+                    </div>
+
+
+                    <div class="form-group text-center">
+
+                        <button [disabled]="load" (click)="reestablecerPass()" class="btn btn-blue btn-block">Envíar nueva contraseña</button>
+
+                        <img src="./../../assets/img/load.gif" *ngIf="load == true">
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="reset()">Cerrar</button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
 
 
 

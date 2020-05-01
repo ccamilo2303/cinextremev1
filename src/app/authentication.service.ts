@@ -66,4 +66,8 @@ export class AuthenticationService {
     this.angularFireAuth.auth.signOut();
   }  
 
+  reestablecerPass(email){
+    return this.angularFireAuth.auth.sendPasswordResetEmail(email);
+  }
+
 }

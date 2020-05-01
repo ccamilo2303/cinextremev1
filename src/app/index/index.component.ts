@@ -302,6 +302,22 @@ export class IndexComponent implements OnInit {
     });
   }
 
+  restaurar(){
+    $('#SignIn').modal('hide');
+    $('#Reset').modal('show');
+  }
+
+  reestablecerPass(){
+    this.load = true;
+    this.authenticationService.reestablecerPass(this.email).then(res=>{
+      Swal.fire('Información', "En un momento se enviará un email con las instrucciones para reestablecer contraseña", 'info');
+      $('#Reset').modal('hide');
+      this.load = false;
+    }).catch(err=>{
+      Swal.fire('Error', err.message, 'error');
+      this.load = false;
+    });
+  }
   
 
 

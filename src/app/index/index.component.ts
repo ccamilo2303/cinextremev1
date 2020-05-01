@@ -336,68 +336,81 @@ export class IndexComponent implements OnInit {
       Swal.fire('Error', 'El campo Contraseña no puede estar vacío', 'error');
       return;
     }
-    this.load = true;
 
-    this.codigo = this.codigo.split(' ').join();
-    if (this.codigo != '') {
+    this.authenticationService.consultarUsuario(this.email).then(res =>{
+      console.log('',res);
+      if(res.data() != null){
+        Swal.fire('Error', 'El email ya está registrado en el sistema', 'error');
+      return;
+      }
 
-      this.codeService.validarCodigo(this.codigo, this.email).then(res => {
-        if (res['error'] == true) {
-          Swal.fire('Error', res['mensaje'], 'error');
+      this.load = true;
+    
+      this.codigo = this.codigo.split(' ').join();
+      if (this.codigo != '') {
+  
+        this.codeService.validarCodigo(this.codigo, this.email).then(res => {
+          if (res['error'] == true) {
+            Swal.fire('Error', res['mensaje'], 'error');
+            this.load = false;
+            return;
+          }
+          let random = Math.floor(Math.random() * 1000001);
+  
+  
+          this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
+            if (res['error'] == true) {
+              Swal.fire('Error', res['mensaje'], 'error');
+              this.load = false;
+              return;
+            }
+  
+            
+            this.codeService.actualzarSuscripcion_registro(random, 'DEMO', this.email, this.nombres).then(res => {
+              if (res['error'] == true) {
+                Swal.fire('Error', res['mensaje'], 'error');
+                this.load = false;
+                return;
+              }
+  
+              this.registrar(true);
+  
+            }, error => {
+              Swal.fire('Error', 'Ocurrió un error al momento de validar el código promocional', 'error');
+              console.log("", error);
+              this.load = false;
+              return;
+            })
+  
+          }, error => {
+            Swal.fire('Error', 'Ocurrió un error al momento de generar la suscripcion', 'error');
+            console.log("", error);
+            this.load = false;
+            return;
+          });
+  
+        }, error => {
+          Swal.fire('Error', 'Ocurrió un error al momento de validar el código promocional', 'error');
+          console.log("", error);
           this.load = false;
           return;
-        }
-        let random = Math.floor(Math.random() * 1000001);
-
-
+        })
+      } else {
+        let random = Math.floor(Math.random() * 8000001);
+        sessionStorage.setItem("idPago", random.toString());
         this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
           if (res['error'] == true) {
             Swal.fire('Error', res['mensaje'], 'error');
             this.load = false;
             return;
           }
-
-          this.codeService.actualzarSuscripcion(random, 'DEMO').then(res => {
-            if (res['error'] == true) {
-              Swal.fire('Error', res['mensaje'], 'error');
-              this.load = false;
-              return;
-            }
-
-            this.registrar(true);
-
-          }, error => {
-            Swal.fire('Error', 'Ocurrió un error al momento de validar el código promocional', 'error');
-            console.log("", error);
-            this.load = false;
-            return;
-          })
-
-        }, error => {
-          Swal.fire('Error', 'Ocurrió un error al momento de generar la suscripcion', 'error');
-          console.log("", error);
-          this.load = false;
-          return;
+          this.registrar(false);
         });
+      }
 
-      }, error => {
-        Swal.fire('Error', 'Ocurrió un error al momento de validar el código promocional', 'error');
-        console.log("", error);
-        this.load = false;
-        return;
-      })
-    } else {
-      let random = Math.floor(Math.random() * 8000001);
-      sessionStorage.setItem("idPago", random.toString());
-      this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
-        if (res['error'] == true) {
-          Swal.fire('Error', res['mensaje'], 'error');
-          this.load = false;
-          return;
-        }
-        this.registrar(false);
-      });
-    }
+    });
+
+   
 
 
 
@@ -429,8 +442,8 @@ export class IndexComponent implements OnInit {
         
       } else {
         Swal.fire('Correcto!', 'Usuario registrado correctamente, tu cuenta estará activa por un día para disfrutar de todo nuestro contenido.', 'success');
-        
-        this.login();
+        this.load = false;
+        //this.login();
       }
 
     })

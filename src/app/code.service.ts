@@ -41,6 +41,12 @@ export class CodeService {
 
   }
 
+  actualzarSuscripcion_registro( idPago, idTransaccion, email, nombres){
+    
+    return this.httpClient.get(environment.ipServicio+'suscripcion-ac2?id_Pago='+idPago+'&id_Transaccion='+idTransaccion+'&email='+email+'&nombres='+nombres).toPromise();
+
+  }
+
   formularioContacto(info){
     
     return this.httpClient.get(environment.ipServicio+'contactar/'+info);

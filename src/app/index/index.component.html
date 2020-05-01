@@ -136,26 +136,26 @@
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control" placeholder="Nombre Completo" required="required" [(ngModel)]="nombres" id="nombres" name="nombres" autofocus>
+                        <input type="text" class="form-control" autocomplete="false" placeholder="Nombre Completo" required="required" [(ngModel)]="nombres" id="nombres" name="nombres" autofocus>
 
                     </div>
 
                     <div class="form-group">
 
-                        <input type="email" class="form-control" placeholder="Email" required="required" [(ngModel)]="email" name="email">
+                        <input type="email" class="form-control" autocomplete="false" placeholder="Email" required="required" [(ngModel)]="email" name="email">
 
                     </div>
 
                     <div class="form-group">
 
-                        <input type="password" class="form-control" placeholder="Contraseña" required="required" [(ngModel)]="pass" name="pass">
+                        <input type="password" class="form-control" autocomplete="false" placeholder="Contraseña" required="required" [(ngModel)]="pass" name="pass">
 
                         <password-strength-meter [password]="pass" [minPasswordLength]="6"></password-strength-meter>
                     </div>
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control" placeholder="Ingresa tu còdigo promocional" required="required" [(ngModel)]="codigo" name="codigo">
+                        <input type="text" class="form-control" autocomplete="false" placeholder="Ingresa tu còdigo promocional" required="required" [(ngModel)]="codigo" name="codigo">
 
                     </div>
 
@@ -542,13 +542,13 @@
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control" placeholder="Email" name="email" id="email" formControlName="email" [(ngModel)]="email">
+                        <input type="text" class="form-control" autocomplete="false" placeholder="Email" name="email" id="email" formControlName="email" [(ngModel)]="email">
 
                     </div>
 
                     <div class="form-group">
 
-                        <input type="password" class="form-control" placeholder="Contraseña" name="pass" id="password" formControlName="password" [(ngModel)]="pass">
+                        <input type="password" class="form-control" autocomplete="false" placeholder="Contraseña" name="pass" id="password" formControlName="password" [(ngModel)]="pass">
 
 
                     </div>
@@ -600,7 +600,7 @@
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control" placeholder="Email" name="email" id="email" formControlName="email" [(ngModel)]="email">
+                        <input type="text" class="form-control" autocomplete="false" placeholder="Email" name="email" id="email" formControlName="email" [(ngModel)]="email">
 
                     </div>
 
@@ -618,7 +618,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" (click)="reset()">Cerrar</button>
             </div>
-
 
         </div>
 

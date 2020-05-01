@@ -15,7 +15,7 @@ export class AuthenticationService {
 
   constructor(private angularFireAuth: AngularFireAuth, public firestore: AngularFirestore) {
     this.userData = angularFireAuth.authState;
-
+    this.angularFireAuth.auth.useDeviceLanguage()
     /*this.angularFireAuth.authState.subscribe(userResponse => {
       console.log("--->: ", userResponse);
       if (userResponse) {
@@ -63,10 +63,12 @@ export class AuthenticationService {
   }
 
   cerrarSesion() {
+    
     this.angularFireAuth.auth.signOut();
   }  
 
   reestablecerPass(email){
+    
     return this.angularFireAuth.auth.sendPasswordResetEmail(email);
   }
 

@@ -59,6 +59,10 @@ export class IndexComponent implements OnInit {
 
     this.loadScript();
 
+    /*$('#myModalLabel').on('hidden.bs.modal', function () {
+      this.compra = false;
+  });*/
+
     
     if(window.location.href.indexOf('?l=l')){
       sessionStorage.removeItem(environment.nameToken);
@@ -281,6 +285,10 @@ export class IndexComponent implements OnInit {
 
   contact(){
      contactt();
+  }
+
+  reset(){
+    this.compra = false;
   }
 
   loginGoogle(){

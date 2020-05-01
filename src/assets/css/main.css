@@ -816,3 +816,9 @@ footer {
 
     font-size: 1.4rem!important;
   }
+
+  .swal2-shown{
+
+    padding-right: 0px!important;
+}
+  }

@@ -48,7 +48,7 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     HttpClientModule
   ],
   providers: [
-    {provide : LocationStrategy , useClass: PathLocationStrategy}
+    {provide : LocationStrategy , useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

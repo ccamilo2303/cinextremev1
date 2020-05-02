@@ -22,6 +22,7 @@
     "@angular/router": "~8.2.4",
     "@babel/compat-data": "7.8.0",
     "angular-password-strength-meter": "^1.0.2",
+    "angular-persistence": "^1.0.1",
     "firebase": "^7.13.1",
     "rxjs": "~6.4.0",
     "sweetalert2": "^9.10.7",

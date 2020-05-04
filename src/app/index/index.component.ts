@@ -192,11 +192,11 @@ export class IndexComponent implements OnInit {
       let x = this.registerForm.value.msg ;
       
       x = x.replace(/[?#-()&%$#"=¡¿*{}]/g, "");
-      x = x.replace("\n"," ");
+      x = x.replace(/(\r\n|\n|\r)/gm, ' ');
       x = x.trim();
-      console.log(x);
       
-      /*this.registerForm.value.msg = x;
+      
+      this.registerForm.value.msg = x;
       let obj = (JSON.stringify(this.registerForm.value));
 
       this.codeService.formularioContacto(obj).subscribe(res => {
@@ -224,7 +224,7 @@ export class IndexComponent implements OnInit {
           text: 'Lo sentimos, no se pudo envíar la información de contacto, intentelo más tarde.',
         })
 
-      });*/
+      });
   }
 
   limpiarFormularioContacto(){
@@ -478,7 +478,7 @@ export class IndexComponent implements OnInit {
           let random = Math.floor(Math.random() * 1000001);
           
 
-          this.codeService.generarSuscripcion(this.email, random, dias).then(res => {
+          this.codeService.generarSuscripcion(this.email, random, 1).then(res => {
             if (res['error'] == true) {
               Swal.fire('Error', res['mensaje'], 'error');
               this.load = false;

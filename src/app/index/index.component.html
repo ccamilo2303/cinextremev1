@@ -58,6 +58,12 @@
 
             <ul class="nav navbar-nav navbar-right">
 
+                <li class="button-holder" style="display: contents;">
+
+                    <button type="button" class="btn btn-blue navbar-btn" data-toggle="modal" data-target="#SignIn" data-backdrop="static" data-keyboard="false" id="iniciarSesion" (click)="validate()">Iniciar Sesión</button>
+
+                </li>
+
                 <li class="active scroll"><a href="#home" id="inicio">Inicio</a></li>
 
                 <li class="scroll"><a href="#about">Acerca de</a></li>
@@ -68,11 +74,7 @@
 
                 <li class="scroll"><a href="#contact">Contacto</a></li>
 
-                <li class="button-holder">
-
-                    <button type="button" class="btn btn-blue navbar-btn" data-toggle="modal" data-target="#SignIn" data-backdrop="static" data-keyboard="false" id="iniciarSesion" (click)="validate()">Iniciar Sesión</button>
-
-                </li>
+               
 
             </ul>
 
@@ -114,7 +116,9 @@
 
                 <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, quibusdam. Sit, quas tempora quia officia!</p>-->
 
-                <a href="#" class="btn btn-transparent">Solicita una demostraciòn</a>
+                <a href="#" class="btn btn-transparent" data-toggle="modal" 
+                data-target="#CodeDemo" data-backdrop="static" data-keyboard="false" 
+                id="codigoDemo">Solicita una demostraciòn</a>
 
                 <!--<a class="btn btn-blue popup-youtube" href="https://www.youtube.com/watch?v=Q8TXgCzxEnw">
 
@@ -518,6 +522,48 @@
 
 <!-- Modal -->
 
+
+<div class="modal fade" id="CodeDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content" style="margin-top: 200px;">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="fa fa-times"></i>
+                </button>
+
+                <h4 class="modal-title text-center" id="myModalLabel">Introduce tu correo electronico</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="signup-form">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" autocomplete="false" placeholder="Email" name="emailDemo" id="emailDemo"  [(ngModel)]="emailDemo">
+
+                    </div> 
+
+                    <div class="form-group text-center">
+
+                        <button [disabled]="load" (click)="generarDemo()" class="btn btn-blue btn-block">Envíar</button>
+
+                        
+                    </div>
+
+                </div>
+
+            </div>
+        
+        </div>
+
+    </div>
+
+</div>
 
 
 <div class="modal fade" id="SignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

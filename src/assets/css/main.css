@@ -237,7 +237,7 @@ p {
     margin: 0 !important;
     padding: 3px 15px; }
     nav.navbar.bootsnav .navbar-brand img {
-      width: 30px; }
+      width: 125px; }
 
   nav.navbar.bootsnav .navbar-header {
     float: none;
@@ -821,4 +821,8 @@ footer {
 
     padding-right: 0px!important;
 }
-  }
+
+.navbar-btn {
+  margin-top: 20px!important;
+  
+}

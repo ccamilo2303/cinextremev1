@@ -63,5 +63,9 @@ export class CodeService {
     return this.httpClient.get(environment.getIpServicio()+'actualizar-dias?id_pago='+idPago+"&dias="+dias);
   }
 
+  generarDemo(emailDemo){
+    return this.httpClient.get(environment.getIpServicio()+'solicitud-demo?email='+emailDemo);
+  }
+
 
 }

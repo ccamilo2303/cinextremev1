@@ -25,6 +25,7 @@ export class IndexComponent implements OnInit {
   
   public scripts: Array<string> = new Array();
   public email : string;
+  public emailDemo : string;
   public pass : string;
   public load:boolean = false;
 
@@ -35,6 +36,7 @@ export class IndexComponent implements OnInit {
   public tipo: string = '';
   public codigo: string = '';
   public loginForm:any;
+  public demoForm:any;
 
   public estado: string = '';
   public idTransaccion: string = '';
@@ -93,7 +95,7 @@ export class IndexComponent implements OnInit {
 
 
     this.registerForm = this.formBuilder.group({
-      _token: [null],
+      
       name: ['', Validators.required],
       last: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -187,31 +189,42 @@ export class IndexComponent implements OnInit {
           return;
       }
 
+      let x = this.registerForm.value.msg ;
+      
+      x = x.replace(/[?#-()&%$#"=¡¿*{}]/g, "");
+      x = x.replace("\n"," ");
+      x = x.trim();
+      console.log(x);
+      
+      /*this.registerForm.value.msg = x;
       let obj = (JSON.stringify(this.registerForm.value));
 
       this.codeService.formularioContacto(obj).subscribe(res => {
-        console.log('', res);
+        
+        if(res['error'] == false){
 
-       this.limpiarFormularioContacto();
+          this.limpiarFormularioContacto();
 
-       Swal.fire({
-        icon: 'success',
-        title: 'Mensaje enviado con éxito',
-        text: 'Gracias por contactarnos, nos pondremos en contacto con usted dentro de poco.',
-      })
+          Swal.fire({
+            icon: 'success',
+            title: 'Mensaje enviado con éxito',
+            text: res['mensaje'],
+          })
+
+        }
+       
 
         
       }, error=>{
         console.log('--->', error);
-        this.limpiarFormularioContacto();
 
         Swal.fire({
           icon: 'error',
           title: 'Ocurrio un error en el envío',
-          text: 'Vuelve a intentarlo más tarde.',
+          text: 'Lo sentimos, no se pudo envíar la información de contacto, intentelo más tarde.',
         })
 
-      });
+      });*/
   }
 
   limpiarFormularioContacto(){
@@ -230,7 +243,31 @@ export class IndexComponent implements OnInit {
     }
   }
 
-  
+  generarDemo(){
+    this.load = true;
+    if(this.emailDemo == undefined || this.emailDemo.split(' ').join('') == ''){
+      
+      Swal.fire('Error', 'El campo Email no puede estar vacío', 'error');
+      return;
+    }
+
+    this.codeService.generarDemo(this.emailDemo).subscribe(res => {
+      
+      
+      if (res['error'] == true) {
+        Swal.fire('Error', res['mensaje'], 'error');
+        this.load = false;
+      }else{
+        Swal.fire('Correcto', res['mensaje'], 'success');
+        this.load = false;
+      }
+
+    }, error=>{
+      Swal.fire('Error', error.message, 'error');
+      this.load = false;
+    });
+
+  }
   
   login(){
     
